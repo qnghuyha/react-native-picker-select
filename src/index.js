@@ -114,7 +114,7 @@ export default class RNPickerSelect extends PureComponent {
 
     constructor(props) {
         super(props);
-
+        this.pickerRef = React.createRef()
         const items = RNPickerSelect.handlePlaceholder({
             placeholder: props.placeholder,
         }).concat(props.items);
@@ -240,7 +240,7 @@ export default class RNPickerSelect extends PureComponent {
         if (!showPicker) {
             Keyboard.dismiss();
         }
-
+        if (this['pickerRef'] && this.pickerRef.current && Platform.OS == 'android') this.pickerRef?.current?.focus();
         const animationType =
             modalProps && modalProps.animationType ? modalProps.animationType : 'slide';
 
@@ -458,6 +458,7 @@ export default class RNPickerSelect extends PureComponent {
                             testID="ios_picker"
                             onValueChange={this.onValueChange}
                             selectedValue={selectedItem.value}
+                            ref={this.pickerRef}
                             {...pickerProps}
                         >
                             {this.renderPickerItems()}
@@ -501,6 +502,7 @@ export default class RNPickerSelect extends PureComponent {
                         onValueChange={this.onValueChange}
                         selectedValue={selectedItem.value}
                         {...pickerProps}
+                        ref={this.pickerRef}
                     >
                         {this.renderPickerItems()}
                     </Picker>
@@ -526,6 +528,7 @@ export default class RNPickerSelect extends PureComponent {
                     onValueChange={this.onValueChange}
                     selectedValue={selectedItem.value}
                     {...pickerProps}
+                    ref={this.pickerRef}
                 >
                     {this.renderPickerItems()}
                 </Picker>
@@ -546,6 +549,7 @@ export default class RNPickerSelect extends PureComponent {
                     enabled={!disabled}
                     onValueChange={this.onValueChange}
                     selectedValue={selectedItem.value}
+                    ref={this.pickerRef}
                     {...pickerProps}
                 >
                     {this.renderPickerItems()}
