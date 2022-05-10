@@ -57,6 +57,7 @@ export default class RNPickerSelect extends PureComponent {
         // Custom Icon
         Icon: PropTypes.func,
         InputAccessoryView: PropTypes.func,
+        iosLabel: PropTypes.string
     };
 
     static defaultProps = {
@@ -85,6 +86,7 @@ export default class RNPickerSelect extends PureComponent {
         touchableWrapperProps: {},
         Icon: null,
         InputAccessoryView: null,
+        iosLabel: ''
     };
 
     static handlePlaceholder({ placeholder }) {
@@ -380,7 +382,7 @@ export default class RNPickerSelect extends PureComponent {
     }
 
     renderTextInputOrChildren() {
-        const { children, style, textInputProps } = this.props;
+        const { children, style, textInputProps, iosLabel } = this.props;
         const { selectedItem } = this.state;
 
         const containerStyle =
@@ -402,7 +404,7 @@ export default class RNPickerSelect extends PureComponent {
                         Platform.OS === 'ios' ? style.inputIOS : style.inputAndroid,
                         this.getPlaceholderStyle(),
                     ]}
-                    value={selectedItem.inputLabel ? selectedItem.inputLabel : selectedItem.label}
+                    value={iosLabel ? iosLabel : selectedItem.inputLabel ? selectedItem.inputLabel : selectedItem.label}
                     ref={this.setInputRef}
                     editable={false}
                     {...textInputProps}
